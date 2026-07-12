@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de Control · Fixy</title>
+<style>
+  :root{
+    --navy:#0F2E3E; --navy2:#123A4D; --teal:#1B9AC4; --teal-d:#0d7fa5;
+    --yellow:#F4B223; --ink:#20313a; --muted:#6b8290; --line:#e6eef2;
+    --bg:#eef4f7; --card:#ffffff;
+    --green:#1e9e5a; --green-bg:#e6f6ec;
+    --amber:#e0a800; --amber-bg:#fdf6e3;
+    --red:#d64545; --red-bg:#fbe9e9;
+    --com:#1B9AC4; --ope:#0F2E3E; --ful:#c98a00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding:0 0 60px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+  .titlebar{display:flex;align-items:center;gap:14px;padding:16px 0 10px}
+  .titlebar img{height:38px}
+  .titlebar h1{font-size:17px;color:var(--navy);font-weight:700}
+  .titlebar .per{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+  .titlebar .per b{color:var(--navy)}
+
+  .refs{display:flex;gap:18px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--muted);margin-bottom:8px}
+  .refs .r{display:flex;align-items:center;gap:6px}
+  .refs .sq{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .refs b{color:var(--ink)}
+
+  nav.seg{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  nav.seg a{font-size:13px;text-decoration:none;color:#fff;padding:9px 18px;border-radius:8px;font-weight:700}
+  nav.seg a.com{background:var(--com)} nav.seg a.ope{background:var(--ope)} nav.seg a.ful{background:var(--ful)}
+  nav.seg a:hover{opacity:.9}
+
+  section.seg{margin-top:26px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .seghead{padding:14px 18px;color:#fff;display:flex;align-items:center;gap:12px}
+  .seghead.com{background:linear-gradient(100deg,#1B9AC4,#0d7fa5)}
+  .seghead.ope{background:linear-gradient(100deg,#0F2E3E,#123A4D)}
+  .seghead.ful{background:linear-gradient(100deg,#e0a800,#c98a00)}
+  .seghead h2{font-size:20px;font-weight:800}
+  .seghead .desc{margin-left:auto;font-size:12px;opacity:.92;max-width:52%;text-align:right}
+  .segbody{background:#f7fbfc;padding:16px 18px 22px}
+
+  h3.mini{font-size:14px;color:var(--navy);margin:18px 0 10px;display:flex;align-items:center;gap:8px;font-weight:700}
+  h3.mini:first-child{margin-top:2px}
+  .concept{font-size:11.5px;color:var(--muted);font-style:italic;margin:-6px 0 8px}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:880px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px;position:relative;overflow:hidden}
+  .kpi .accent{position:absolute;left:0;top:0;bottom:0;width:5px}
+  .kpi.green .accent{background:var(--green)} .kpi.amber .accent{background:var(--amber)} .kpi.red .accent{background:var(--red)} .kpi.neutral .accent{background:var(--teal)}
+  .kpi .label{font-size:12.5px;color:var(--muted);font-weight:600}
+  .kpi .value{font-size:29px;font-weight:800;margin:5px 0 2px;color:var(--navy)}
+  .kpi .value small{font-size:14px;font-weight:600;color:var(--muted)}
+  .delta{font-size:12px;font-weight:700}
+  .delta.up{color:var(--green)} .delta.down{color:var(--red)} .delta.flat{color:var(--muted)}
+  .sem{font-size:11.5px;margin-top:8px;padding:6px 9px;border-radius:7px;font-weight:600;display:flex;gap:6px;align-items:flex-start}
+  .sem.green{background:var(--green-bg);color:#166b3d} .sem.amber{background:var(--amber-bg);color:#8a6600} .sem.red{background:var(--red-bg);color:#a82f2f}
+  .sem .ic{font-size:12px}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12.5px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-size:11.5px;font-weight:600}
+  td{padding:8px 12px;border-top:1px solid var(--line)}
+  tr:nth-child(even) td{background:#fafcfd}
+  .mono{font-variant-numeric:tabular-nums} .pos{color:var(--green);font-weight:700} .neg{color:var(--red);font-weight:700}
+  .chip{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:700}
+  .chip.A{background:#d7f0e0;color:#1e7a45} .chip.B{background:#d9edf7;color:#1b7fa8} .chip.C{background:#fdf0d0;color:#9a7400} .chip.D{background:#f0e6f7;color:#7a4a9a} .chip.E{background:#eef1f3;color:#66788a}
+  .note{background:#eef6fa;border-left:4px solid var(--teal);padding:11px 14px;border-radius:8px;font-size:12.5px;color:var(--navy2)}
+  .note.warn{background:var(--amber-bg);border-color:var(--amber)} .note.info{background:#f0f7ec;border-color:var(--green)}
+
+  .chart{margin-top:8px}
+  .chart svg{width:100%;height:74px;display:block}
+  .clab{display:flex;justify-content:space-between;font-size:9.5px;color:#9fb2bc;margin-top:1px}
+  .cref{font-size:10px;color:#9fb2bc;margin-top:3px}
+  .bigchart{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .bigchart svg{width:100%;height:200px}
+  .legend{font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+  .legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+
+  footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);text-align:center}
+  .actions li{margin:7px 0;font-size:13px} .actions b{color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="titlebar">
+    <img src="data:image/png;base64,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" alt="Fixy">
+    <h1>Tablero de Control · Operaciones &amp; Negocio</h1>
+    <div class="per">Cierre <b>Junio 2026</b> · Julio en curso<br>Evolutivo Ene–Jun</div>
+  </div>
+
+  <div class="refs">
+    <span class="r"><b>Referencias:</b></span>
+    <span class="r"><span class="sq" style="background:var(--green)"></span> Verde = cumple meta</span>
+    <span class="r"><span class="sq" style="background:var(--amber)"></span> Amarillo = alerta</span>
+    <span class="r"><span class="sq" style="background:var(--red)"></span> Rojo = por debajo</span>
+    <span class="r">▲/▼ = variación vs mes anterior</span>
+    <span class="r">línea punteada roja = meta en los gráficos</span>
+  </div>
+
+  <nav class="seg">
+    <a class="com" href="#comercial">Comercial</a>
+    <a class="ope" href="#operaciones">Operaciones</a>
+    <a class="ful" href="#fulfillment">Fulfillment</a>
+  </nav>
+
+  <div class="note info" style="margin-top:10px">Junio cerró con <b>récord de facturación ($295M) y volumen</b>, y el <b>SLA en verde y en mejora</b> vs mayo. El foco: el cumplimiento del objetivo comercial cae (crecimiento real +52% vs objetivo +70%) y la calidad de entrega depende de la <b>flota propia</b> (70,8% vs 98,6% de tercerizados). Julio es dato en curso (SLA no comparable).</div>
+
+  <!-- =========================================================== COMERCIAL -->
+  <section class="seg" id="comercial">
+    <div class="seghead com"><h2>💼 Comercial</h2><div class="desc">Objetivo, facturación y cartera de clientes · fuente: archivo Facturación oficial</div></div>
+    <div class="segbody">
+
+      <h3 class="mini">KPIs principales</h3>
+      <div class="grid g3">
+        <div class="kpi red"><div class="accent"></div>
+          <div class="label">Cumplimiento del objetivo de envíos (junio)</div>
+          <div class="value">85,6<small>%</small></div>
+          <div class="delta down">▼ −3,5 pp vs mayo (89,1%)</div>
+          <div class="sem red"><span class="ic">🔴</span><span>Rojo: por debajo del 90%. El objetivo es +70% interanual; el crecimiento real es +52%, por eso no se alcanza.</span></div>
+        </div>
+        <div class="kpi green"><div class="accent"></div>
+          <div class="label">Facturación de flete (junio)</div>
+          <div class="value">$295,4<small>M</small></div>
+          <div class="delta up">▲ +8,5% vs mayo ($272,2M)</div>
+          <div class="sem green"><span class="ic">🟢</span><span>Récord del semestre. El 1er semestre 2026 duplicó al de 2025 (+101%).</span></div>
+        </div>
+        <div class="kpi amber"><div class="accent"></div>
+          <div class="label">Envíos del mes (junio)</div>
+          <div class="value">40.245</div>
+          <div class="delta up">▲ +8,4% vs mayo (37.133)</div>
+          <div class="sem amber"><span class="ic">🟡</span><span>Crece, pero por debajo del objetivo (47.003). Desvío −6.758 envíos.</span></div>
+        </div>
+      </div>
+
+      <h3 class="mini">Crecimiento real vs inflación (INDEC)</h3>
+      <div class="concept">El crecimiento en pesos incluye la inflación. Al descontarla (deflactar) se ve el crecimiento REAL, que se valida contra el crecimiento en volumen (envíos, que no tiene inflación).</div>
+      <div class="grid g4">
+        <div class="kpi neutral"><div class="accent"></div><div class="label">Facturación nominal (H1 2026 vs H1 2025)</div><div class="value">+101<small>%</small></div><div class="cref">en pesos corrientes</div></div>
+        <div class="kpi neutral"><div class="accent"></div><div class="label">Inflación interanual (jun 2026, INDEC)</div><div class="value">~33<small>%</small></div><div class="cref">semestre acumulado ~16%</div></div>
+        <div class="kpi green"><div class="accent"></div><div class="label">Crecimiento REAL (deflactado)</div><div class="value">+51<small>%</small></div><div class="sem green"><span class="ic">🟢</span><span>Crecimiento genuino, por encima de la inflación.</span></div></div>
+        <div class="kpi green"><div class="accent"></div><div class="label">Crecimiento en volumen (envíos)</div><div class="value">+52<small>%</small></div><div class="sem green"><span class="ic">📦</span><span>Coincide con el real: valida el crecimiento.</span></div></div>
+      </div>
+      <div class="note info" style="margin-top:8px">El negocio creció <b>~52% real</b>. El salto de <b>+101% en pesos es mitad inflación, mitad crecimiento genuino</b> — descontando el ~33% de inflación interanual, el crecimiento real (+51%) coincide con el aumento de volumen (+52%).</div>
+
+      <h3 class="mini">Objetivo vs real de envíos</h3>
+      <div class="concept">Objetivo = envíos 2025 × 1,70 (+70%). Barra gris = objetivo, barra azul = real. El número arriba de cada par es el % de cumplimiento.</div>
+      <div class="bigchart">
+        <svg id="objBars" viewBox="0 0 720 220" preserveAspectRatio="none"></svg>
+        <div class="legend"><span><i style="background:#c3d0d7;height:10px;border-radius:2px"></i>objetivo</span><span><i style="background:#1B9AC4;height:10px;border-radius:2px"></i>real</span><span>* julio proyectado por días hábiles</span></div>
+      </div>
+      <table style="margin-top:10px">
+        <thead><tr><th>Mes</th><th class="mono">Objetivo</th><th class="mono">Real</th><th class="mono">Cumplimiento</th><th class="mono">Desvío</th><th class="mono">Facturación</th></tr></thead>
+        <tbody>
+          <tr><td>Enero</td><td class="mono">41.830</td><td class="mono">34.201</td><td class="mono neg">81,8%</td><td class="mono neg">−7.629</td><td class="mono">$247,7M</td></tr>
+          <tr><td>Febrero</td><td class="mono">28.303</td><td class="mono">28.519</td><td class="mono pos">100,8%</td><td class="mono pos">+216</td><td class="mono">$221,0M</td></tr>
+          <tr><td>Marzo</td><td class="mono">29.458</td><td class="mono">27.866</td><td class="mono">94,6%</td><td class="mono neg">−1.592</td><td class="mono">$211,3M</td></tr>
+          <tr><td>Abril</td><td class="mono">35.027</td><td class="mono">32.225</td><td class="mono">92,0%</td><td class="mono neg">−2.802</td><td class="mono">$237,1M</td></tr>
+          <tr><td>Mayo</td><td class="mono">41.692</td><td class="mono">37.133</td><td class="mono">89,1%</td><td class="mono neg">−4.559</td><td class="mono">$272,2M</td></tr>
+          <tr><td>Junio</td><td class="mono">47.003</td><td class="mono">40.245</td><td class="mono neg">85,6%</td><td class="mono neg">−6.758</td><td class="mono">$295,4M</td></tr>
+          <tr><td>Julio*</td><td class="mono">69.612</td><td class="mono">44.139*</td><td class="mono neg">63,4%*</td><td class="mono neg">−25.473*</td><td class="mono">$281,2M*</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="mini">Facturación consolidada 2023 → 2026</h3>
+      <div class="concept">Consolidado anual (pesos corrientes) con el crecimiento nominal, la inflación del año (INDEC) y el crecimiento real deflactado.</div>
+      <table>
+        <thead><tr><th>Año</th><th class="mono">Facturación</th><th class="mono">Envíos</th><th class="mono">Var nominal</th><th class="mono">Inflación (INDEC)</th><th class="mono">Var real</th></tr></thead>
+        <tbody>
+          <tr><td>2023</td><td class="mono">$214,1M</td><td class="mono">208.093</td><td class="mono">—</td><td class="mono">211,4%</td><td class="mono">—</td></tr>
+          <tr><td>2024</td><td class="mono">$942,4M</td><td class="mono">201.579</td><td class="mono pos">+340%</td><td class="mono">117,8%</td><td class="mono pos">+102%</td></tr>
+          <tr><td>2025</td><td class="mono">$1.926,5M</td><td class="mono">317.606</td><td class="mono pos">+104%</td><td class="mono">31,5%</td><td class="mono pos">+55%</td></tr>
+          <tr><td>2026 (al 10/07)</td><td class="mono pos">$1.561,4M</td><td class="mono">212.227</td><td class="mono">—</td><td class="mono">16% (sem.)</td><td class="mono">—</td></tr>
+        </tbody>
+      </table>
+      <div class="note info" style="margin-top:8px">El crecimiento <b>real</b> (por encima de la inflación) fue fuerte todos los años: +102% en 2024, +55% en 2025 y +51% en el 1er semestre 2026. El negocio crece genuinamente, no solo por precios.</div>
+
+      <h3 class="mini">Apertura — evolutivo mensual multi-año</h3>
+      <div class="concept">Cómo se comportó cada año mes a mes, para ver estacionalidad y umbrales. 2026 va sistemáticamente por encima de años anteriores.</div>
+      <div class="grid g2">
+        <div class="bigchart">
+          <div style="font-size:12px;color:var(--navy);font-weight:700;margin-bottom:4px">Facturación mensual ($M)</div>
+          <svg id="facChart" viewBox="0 0 720 200" preserveAspectRatio="none"></svg>
+          <div class="legend"><span><i style="background:#c3d0d7"></i>2024</span><span><i style="background:#8bb9cc"></i>2025</span><span><i style="background:#1B9AC4"></i>2026</span></div>
+        </div>
+        <div class="bigchart">
+          <div style="font-size:12px;color:var(--navy);font-weight:700;margin-bottom:4px">Envíos mensuales</div>
+          <svg id="envChart" viewBox="0 0 720 200" preserveAspectRatio="none"></svg>
+          <div class="legend"><span><i style="background:#c3d0d7"></i>2024</span><span><i style="background:#8bb9cc"></i>2025</span><span><i style="background:#1B9AC4"></i>2026</span></div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:8px">Patrón claro cada año: caída en febrero, piso en el 1er trimestre y suba hacia mitad de año. Julio suele ser un pico (en 2025 fue el máximo). 2026 arranca muy por encima: el umbral de envíos mensuales pasó de ~15–20K (2024) a ~28–40K (2026).</div>
+
+      <h3 class="mini">Cartera de clientes</h3>
+      <div class="concept">Segmentación por volumen (A–E). Muestra de quién depende el negocio y el riesgo de concentración.</div>
+      <table>
+        <thead><tr><th>Segmento</th><th class="mono"># Clientes</th><th class="mono">% Clientes</th><th class="mono">Envíos</th><th class="mono">% Envíos</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip A">A</span> ≥5.000</td><td class="mono">4</td><td class="mono">4,1%</td><td class="mono">32.207</td><td class="mono">85,0%</td></tr>
+          <tr><td><span class="chip B">B</span> 1.000–4.999</td><td class="mono">2</td><td class="mono">2,1%</td><td class="mono">1.184</td><td class="mono">3,1%</td></tr>
+          <tr><td><span class="chip C">C</span> 500–999</td><td class="mono">15</td><td class="mono">15,5%</td><td class="mono">2.746</td><td class="mono">7,3%</td></tr>
+          <tr><td><span class="chip D">D</span> 100–499</td><td class="mono">11</td><td class="mono">11,3%</td><td class="mono">719</td><td class="mono">1,9%</td></tr>
+          <tr><td><span class="chip E">E</span> 0–99</td><td class="mono">65</td><td class="mono">67,0%</td><td class="mono">1.015</td><td class="mono">2,7%</td></tr>
+        </tbody>
+      </table>
+      <div class="note warn" style="margin-top:8px">⚠ 4 cuentas (segmento A) = <b>85% de los envíos</b>. Alta concentración: cualquier caída de una cuenta A pega fuerte en el volumen.</div>
+
+      <div class="grid g2" style="margin-top:12px">
+        <table style="align-self:start">
+          <thead><tr><th>Top clientes que procesaron (Julio al 11)</th><th class="mono">Guías</th></tr></thead>
+          <tbody>
+            <tr><td>1 · PaqGo</td><td class="mono">7.594</td></tr>
+            <tr><td>2 · DROPI ARG</td><td class="mono">4.429</td></tr>
+            <tr><td>3 · SERENIVIDA SAS</td><td class="mono">3.569</td></tr>
+            <tr><td>4 · MENO AR</td><td class="mono">608</td></tr>
+            <tr><td>5 · BIOLABS</td><td class="mono">309</td></tr>
+            <tr><td colspan="2" style="color:var(--muted);font-style:italic">75 clientes activos · top 3 = ~85% del volumen</td></tr>
+          </tbody>
+        </table>
+        <table style="align-self:start">
+          <thead><tr><th>Crecimiento entregas Abr→Jun</th><th class="mono">Var</th></tr></thead>
+          <tbody>
+            <tr><td>COMFYPETYS</td><td class="mono pos">+145,8%</td></tr>
+            <tr><td>DROPI ARG</td><td class="mono pos">+67,9%</td></tr>
+            <tr><td>PaqGo</td><td class="mono pos">+35,2%</td></tr>
+            <tr><td>RUMINA STORE</td><td class="mono neg">−80,6%</td></tr>
+            <tr><td>POWERNAX</td><td class="mono neg">−79,1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="mini">Logística inversa (devoluciones)</h3>
+      <div class="concept">Devoluciones por cliente y su sender, en cantidad y % sobre sus propias guías. Alto % = problema de calidad de venta del cliente que impacta costo.</div>
+      <table>
+        <thead><tr><th>Cliente</th><th>Sender</th><th class="mono">Devoluciones</th><th class="mono">% s/sus guías</th></tr></thead>
+        <tbody>
+          <tr><td>DROPI ARG</td><td>Joao</td><td class="mono">4.693</td><td class="mono neg">43,8%</td></tr>
+          <tr><td>PaqGo</td><td>Felipe de Elizalde</td><td class="mono">4.167</td><td class="mono neg">25,9%</td></tr>
+          <tr><td>SERENIVIDA SAS</td><td>Facundo Cohrs</td><td class="mono">1.255</td><td class="mono">13,5%</td></tr>
+          <tr><td>MENO AR</td><td>María Clara Casas</td><td class="mono">338</td><td class="mono neg">27,3%</td></tr>
+        </tbody>
+      </table>
+      <div class="note warn" style="margin-top:8px">⚠ Las 2 cuentas más grandes (DROPI y PaqGo) son las que <b>más devuelven</b> (44% y 26%): dependencia alta + devolución alta = costo y volatilidad.</div>
+    </div>
+  </section>
+
+  <!-- =========================================================== OPERACIONES -->
+  <section class="seg" id="operaciones">
+    <div class="seghead ope"><h2>🚚 Operaciones</h2><div class="desc">Calidad de entrega, causas y logística · fuente: guías procesadas + reportes SLA</div></div>
+    <div class="segbody">
+
+      <h3 class="mini">KPIs principales de SLA</h3>
+      <div class="concept">SLA = guías entregadas (POD-ENTREGADA) sobre guías procesadas (sin canceladas, anuladas, dev-rendición ni retiros).</div>
+      <div class="grid g4">
+        <div class="kpi green"><div class="accent"></div>
+          <div class="label">SLA General (junio)</div><div class="value">72,7<small>%</small></div>
+          <div class="delta up">▲ +4,2 pp vs mayo (68,5%)</div>
+          <div class="sem green"><span class="ic">🟢</span><span>Verde: supera la meta de 60% (amarillo 50–60, rojo &lt;50).</span></div>
+        </div>
+        <div class="kpi green"><div class="accent"></div>
+          <div class="label">SLA COD (contraentrega)</div><div class="value">66,9<small>%</small></div>
+          <div class="delta up">▲ +4,8 pp vs mayo (62,1%)</div>
+          <div class="sem green"><span class="ic">🟢</span><span>Verde: supera 60% (amarillo 50–60, rojo &lt;50).</span></div>
+        </div>
+        <div class="kpi green"><div class="accent"></div>
+          <div class="label">SLA Pago Anticipado</div><div class="value">97,4<small>%</small></div>
+          <div class="delta up">▲ +1,1 pp vs mayo (96,3%)</div>
+          <div class="sem green"><span class="ic">🟢</span><span>Verde: supera 95% (amarillo 90–94,99, rojo &lt;90).</span></div>
+        </div>
+        <div class="kpi amber"><div class="accent"></div>
+          <div class="label">FAR — 1ª visita exitosa</div><div class="value">53,8<small>%</small></div>
+          <div class="delta up">▲ +7,7 pp vs mayo (46,1%)</div>
+          <div class="sem amber"><span class="ic">🟡</span><span>Objetivo 75%: casi la mitad no se entrega en la 1ª visita = costo de re-visitas.</span></div>
+        </div>
+      </div>
+
+      <h3 class="mini">SLA — evolutivo con meta</h3>
+      <div class="grid g3">
+        <div class="kpi neutral"><div class="accent"></div><div class="label">SLA General</div>
+          <div class="chart" data-series="72.0,76.2,72.1,76.4,68.5,72.7" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 60% · siempre en verde</div></div>
+        <div class="kpi neutral"><div class="accent"></div><div class="label">SLA Anticipado</div>
+          <div class="chart" data-series="93.1,92.8,88.6,95.8,96.3,97.4" data-umbral="95" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 95% · en verde desde abril</div></div>
+        <div class="kpi neutral"><div class="accent"></div><div class="label">SLA COD</div>
+          <div class="chart" data-series="67.3,69.0,66.8,70.4,62.1,66.9" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 60% · en verde todo el semestre</div></div>
+      </div>
+
+      <h3 class="mini">Entrega por visita (FAR / 2ª / 3ª)</h3>
+      <div class="concept">En qué visita se logra la entrega. Subir el FAR (1ª visita) es la mayor palanca de eficiencia: cada re-visita cuesta.</div>
+      <div class="bigchart">
+        <svg id="visitChart" viewBox="0 0 720 200" preserveAspectRatio="none"></svg>
+        <div class="legend"><span><i style="background:#1e9e5a"></i>1ª visita (FAR)</span><span><i style="background:#F4B223"></i>2ª visita</span><span><i style="background:#d64545"></i>3ª visita</span></div>
+      </div>
+      <div class="note" style="margin-top:8px">FAR volátil (46–63%); la 2ª visita aporta ~9% estable y la 3ª sube levemente (1,2%→2,7%). Hay que vigilar que la 3ª no crezca.</div>
+
+      <h3 class="mini">Dónde está el problema: flota y zona</h3>
+      <div class="grid g2">
+        <table style="align-self:start">
+          <thead><tr><th>Flota (junio)</th><th class="mono">Procesadas</th><th class="mono">SLA</th></tr></thead>
+          <tbody>
+            <tr><td>Tercerizados (Andreani + JN)</td><td class="mono">2.728</td><td class="mono pos">98,6%</td></tr>
+            <tr><td>Flota propia</td><td class="mono">38.931</td><td class="mono neg">70,8%</td></tr>
+          </tbody>
+        </table>
+        <table style="align-self:start">
+          <thead><tr><th>Zona (junio)</th><th class="mono">Guías</th><th class="mono">SLA</th></tr></thead>
+          <tbody>
+            <tr><td>GBA / Prov. Bs.As.</td><td class="mono">30.702</td><td class="mono">66,9%</td></tr>
+            <tr><td>CABA</td><td class="mono">8.661</td><td class="mono">70,4%</td></tr>
+            <tr><td>Interior (todo el país)</td><td class="mono">~2.400</td><td class="mono pos">95–100%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn" style="margin-top:8px">🎯 El déficit de SLA está en la <b>flota propia</b> (28 pts por debajo de los tercerizados) y en <b>AMBA</b> (el Interior entrega casi perfecto). Ahí está la palanca de mejora.</div>
+
+      <h3 class="mini">Retiros y guías robadas / extraviadas</h3>
+      <div class="concept">Los retiros son operación aparte (no cuentan como guía procesada). Robos/extravíos se valorizan por su exposición económica.</div>
+      <div class="grid g3">
+        <div class="kpi neutral"><div class="accent"></div><div class="label">Retiros efectivos (junio)</div><div class="value">632</div>
+          <div class="chart" data-series="673,548,739,617,597,632" data-unit="n" data-labels="E,F,M,A,M,J"></div><div class="cref">retiros realizados (excluye cancelados/anulados)</div></div>
+        <div class="kpi red"><div class="accent"></div><div class="label">Robadas + Extraviadas (junio)</div><div class="value">76 <small>· 0,17%</small></div>
+          <div class="delta down">▲ vs mayo (61)</div>
+          <div class="sem red"><span class="ic">🔴</span><span>66 robadas + 10 extraviadas. Tendencia en alza.</span></div>
+        </div>
+        <div class="kpi red"><div class="accent"></div><div class="label">Exposición económica</div><div class="value">$3,4<small>M</small></div>
+          <div class="sem red"><span class="ic">💸</span><span>Contrarrembolso a responder $3.403.399 + flete no cobrado $463.747.</span></div>
+        </div>
+      </div>
+      <table style="margin-top:10px">
+        <thead><tr><th>Tipo</th><th class="mono">Guías</th><th class="mono">Flete</th><th class="mono">Contrarrembolso</th><th class="mono">Valor declarado</th></tr></thead>
+        <tbody>
+          <tr><td>Robadas</td><td class="mono">66</td><td class="mono">$404.551</td><td class="mono">$3.083.101</td><td class="mono">$2.040.170</td></tr>
+          <tr><td>Extraviadas</td><td class="mono">10</td><td class="mono">$59.196</td><td class="mono">$320.298</td><td class="mono">$230.298</td></tr>
+          <tr><td><b>Total</b></td><td class="mono"><b>76</b></td><td class="mono"><b>$463.747</b></td><td class="mono neg"><b>$3.403.399</b></td><td class="mono"><b>$2.270.468</b></td></tr>
+        </tbody>
+      </table>
+      <div class="grid g2" style="margin-top:10px">
+        <table style="align-self:start">
+          <thead><tr><th>Distribuidor con más robos/extravíos</th><th class="mono">Casos</th></tr></thead>
+          <tbody>
+            <tr><td>Gisela Altamiranda</td><td class="mono neg">24</td></tr>
+            <tr><td>Fabián Perez</td><td class="mono neg">21</td></tr>
+            <tr><td>Santiago Candia</td><td class="mono">8</td></tr>
+            <tr><td colspan="2" style="color:var(--muted);font-style:italic">2 distribuidores concentran 45 de 76 casos</td></tr>
+          </tbody>
+        </table>
+        <table style="align-self:start">
+          <thead><tr><th>Top transportistas propios (entregas)</th><th class="mono">POD</th></tr></thead>
+          <tbody>
+            <tr><td>Marcos Perez</td><td class="mono">781</td></tr>
+            <tr><td>Jorge Minko</td><td class="mono">688</td></tr>
+            <tr><td>Dany Gonzalez</td><td class="mono">620</td></tr>
+            <tr><td>Claudia Boccellia</td><td class="mono">599</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== FULFILLMENT -->
+  <section class="seg" id="fulfillment">
+    <div class="seghead ful"><h2>📦 Fulfillment</h2><div class="desc">Armado y despacho de pedidos (pick &amp; pack) · fuente: archivo Fulfillment</div></div>
+    <div class="segbody">
+      <h3 class="mini">KPIs principales</h3>
+      <div class="concept">Notas de pedido = órdenes armadas en el depósito. Facturación FF = servicio de fulfillment (distinto del flete).</div>
+      <div class="grid g3">
+        <div class="kpi neutral"><div class="accent"></div><div class="label">Notas de pedido (junio)</div><div class="value">10.904</div>
+          <div class="delta up">▲ +87% vs mayo (5.825)</div>
+          <div class="chart" data-series="5038,7232,5902,11488,5825,10904" data-unit="n" data-labels="E,F,M,A,M,J"></div><div class="cref">total semestre: 46.389 notas</div></div>
+        <div class="kpi neutral"><div class="accent"></div><div class="label">Facturación Fulfillment (junio)</div><div class="value">$16,8<small>M</small></div>
+          <div class="delta up">▲ +85% vs mayo ($9,1M)</div>
+          <div class="chart" data-series="8.06,12.04,9.38,17.62,9.10,16.84" data-unit="M" data-labels="E,F,M,A,M,J"></div><div class="cref">total semestre: $73,3M</div></div>
+        <div class="kpi red"><div class="accent"></div><div class="label">Concentración actual — SERENIVIDA (junio)</div><div class="value">95,4<small>%</small></div>
+          <div class="delta down">▲ desde 63,8% en enero</div>
+          <div class="chart" data-series="63.8,32.6,66.5,88.2,90.7,95.4" data-unit="%" data-umbral="90" data-labels="E,F,M,A,M,J"></div>
+          <div class="cref">share de notas de SERENIVIDA · datos hasta junio 2026</div>
+        </div>
+      </div>
+      <div class="note warn" style="margin-top:8px">⚠ La concentración de Fulfillment <b>viene subiendo fuerte</b>: de 63,8% (enero) a <b>95,4% en junio</b>. Hoy prácticamente todo el fulfillment depende de <b>una sola cuenta</b> (SERENIVIDA). Riesgo alto: si esa cuenta se va, el negocio de fulfillment casi desaparece.</div>
+
+      <h3 class="mini">Concentración mes a mes y share de clientes</h3>
+      <div class="concept">Evolutivo de la participación de SERENIVIDA (arriba) y share por cliente del semestre (abajo). Datos hasta junio 2026.</div>
+      <table>
+        <thead><tr><th>Cliente</th><th class="mono">Notas de pedido</th><th class="mono">% notas</th><th class="mono">Facturación FF</th></tr></thead>
+        <tbody>
+          <tr><td>SERENIVIDA SAS</td><td class="mono">35.320</td><td class="mono">76,1%</td><td class="mono">$54,0M</td></tr>
+          <tr><td>PURO</td><td class="mono">4.133</td><td class="mono">8,9%</td><td class="mono">$7,2M</td></tr>
+          <tr><td>KENKU</td><td class="mono">2.005</td><td class="mono">4,3%</td><td class="mono">$3,6M</td></tr>
+          <tr><td>Merx Laboratorio</td><td class="mono">1.976</td><td class="mono">4,3%</td><td class="mono">$3,1M</td></tr>
+          <tr><td>Resto</td><td class="mono">2.955</td><td class="mono">6,4%</td><td class="mono">$5,3M</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONCLUSIONES -->
+  <section class="seg">
+    <div class="seghead" style="background:linear-gradient(100deg,#1e7a45,#166b3d)"><h2>✔ Conclusiones y acciones</h2></div>
+    <div class="segbody">
+      <ol class="actions">
+        <li>🚚 <b>Subir el FAR de la flota propia en AMBA</b> — la mayor palanca: cerrar el gap contra el 98,6% de los tercerizados.</li>
+        <li>🎯 <b>Definir el objetivo comercial</b> — el cumplimiento cae (crecimiento real +52% vs objetivo +70%); recalibrar meta o reforzar capacidad para el 2º semestre.</li>
+        <li>🔁 <b>Trabajar la calidad de venta de DROPI y PaqGo</b> — mayor volumen y mayor devolución (44% y 26%).</li>
+        <li>🛡️ <b>Controlar 2 distribuidores</b> que concentran 45 de 76 robos/extravíos ($3,4M de exposición).</li>
+        <li>📉 <b>Diversificar cartera</b> — 4 cuentas = 85% del volumen; SERENIVIDA = 76% del fulfillment.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    Tablero de Control · Operaciones &amp; Negocio — Fixy Argentina · Julio 2026<br>
+    Fuentes: guías procesadas · reportes SLA · archivo Facturación (oficial) · Fulfillment · Criterio de Segmentación 2026. Metodología de indicadores según Guía Fixy (SIGEN). Julio en curso: el SLA del mes no es comparable (guías en tránsito).
+  </footer>
+</div>
+
+<script>
+function fmtVal(v,u){
+  if(u==='%'||u==='d')return v.toFixed(1).replace('.',',');
+  if(u==='M')return v.toFixed(0);
+  if(u==='n')return v>=1000?(v/1000).toFixed(1).replace('.',',')+'k':(''+v);
+  return ''+v;
+}
+function drawLine(el){
+  const pts=el.dataset.series.split(',').map(v=>v===''?null:parseFloat(v));
+  const u=el.dataset.unit||'', umb=el.dataset.umbral?parseFloat(el.dataset.umbral):null;
+  const labels=(el.dataset.labels||'').split(',');
+  const W=260,H=74,pX=10,pT=18,pB=8;
+  const valid=pts.filter(v=>v!==null);
+  let mn=Math.min(...valid, umb!==null?umb:Infinity), mx=Math.max(...valid, umb!==null?umb:-Infinity);
+  if(mn===mx){mn-=1;mx+=1;} const rng=(mx-mn)||1;
+  const x=i=>pX+(W-2*pX)*(i/(pts.length-1)), y=v=>H-pB-(H-pT-pB)*((v-mn)/rng);
+  let d='',st=false;
+  pts.forEach((v,i)=>{if(v!==null){d+=(st?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)+' ';st=true;}});
+  const xs=pts.map((v,i)=>v!==null?i:null).filter(i=>i!==null);
+  let area='';
+  if(xs.length){area='M'+x(xs[0]).toFixed(1)+' '+(H-pB)+' ';pts.forEach((v,i)=>{if(v!==null)area+='L'+x(i).toFixed(1)+' '+y(v).toFixed(1)+' ';});area+='L'+x(xs[xs.length-1]).toFixed(1)+' '+(H-pB)+' Z';}
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">';
+  svg+='<path d="'+area+'" fill="#1B9AC4" opacity="0.08"/>';
+  if(umb!==null){const yu=y(umb);svg+='<line x1="'+pX+'" y1="'+yu.toFixed(1)+'" x2="'+(W-pX)+'" y2="'+yu.toFixed(1)+'" stroke="#d64545" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>';}
+  svg+='<path d="'+d+'" fill="none" stroke="#1B9AC4" stroke-width="2"/>';
+  pts.forEach((v,i)=>{if(v!==null){const last=i===pts.length-1||pts.slice(i+1).every(z=>z===null);
+    svg+='<circle cx="'+x(i).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="'+(last?3:2.3)+'" fill="'+(last?'#0F2E3E':'#1B9AC4')+'"/>';
+    svg+='<text x="'+x(i).toFixed(1)+'" y="'+(y(v)-5).toFixed(1)+'" font-size="8.5" fill="'+(last?'#0F2E3E':'#6b8290')+'" text-anchor="middle" font-weight="'+(last?'700':'400')+'">'+fmtVal(v,u)+'</text>';}});
+  svg+='</svg>';
+  el.innerHTML=svg+'<div class="clab">'+labels.map(l=>'<span>'+l+'</span>').join('')+'</div>';
+}
+document.querySelectorAll('.chart').forEach(drawLine);
+
+function bigMulti(id,series,labels,colors,fmt){
+  const svg=document.getElementById(id); if(!svg)return;
+  const W=720,H=200,pad=34,pT=22;
+  let all=[]; series.forEach(s=>s.forEach(v=>{if(v!=null)all.push(v)}));
+  const mx=Math.max(...all)*1.12, mn=0, n=labels.length;
+  const x=i=>pad+(W-2*pad)*(i/(n-1)), y=v=>H-pad-(H-pad-pT)*((v-mn)/(mx-mn));
+  let g='';
+  for(let k=0;k<=3;k++){const yy=pT+(H-pad-pT)*k/3;g+='<line x1="'+pad+'" y1="'+yy+'" x2="'+(W-pad)+'" y2="'+yy+'" stroke="#eaf0f3"/>';}
+  series.forEach((s,si)=>{let d='',st=false;s.forEach((v,i)=>{if(v!=null){d+=(st?'L':'M')+x(i)+' '+y(v)+' ';st=true;}});
+    g+='<path d="'+d+'" fill="none" stroke="'+colors[si]+'" stroke-width="2.5"/>';
+    s.forEach((v,i)=>{if(v!=null){g+='<circle cx="'+x(i)+'" cy="'+y(v)+'" r="3" fill="'+colors[si]+'"/>';g+='<text x="'+x(i)+'" y="'+(y(v)-7)+'" font-size="8.5" fill="'+colors[si]+'" text-anchor="middle" font-weight="600">'+fmt(v)+'</text>';}});});
+  labels.forEach((l,i)=>g+='<text x="'+x(i)+'" y="'+(H-10)+'" font-size="10" fill="#6b8290" text-anchor="middle">'+l+'</text>');
+  svg.innerHTML=g;
+}
+function bars(id,obj,real,labels){
+  const svg=document.getElementById(id); if(!svg)return;
+  const W=720,H=220,pad=34,pT=26,pB=30;
+  const mx=Math.max(...obj)*1.14, n=labels.length, gW=(W-2*pad)/n, bw=gW*0.30;
+  const y=v=>H-pB-(H-pB-pT)*(v/mx);
+  let g='';
+  for(let k=0;k<=3;k++){const yy=pT+(H-pB-pT)*k/3;g+='<line x1="'+pad+'" y1="'+yy+'" x2="'+(W-pad)+'" y2="'+yy+'" stroke="#eef0f3"/>';}
+  labels.forEach((l,i)=>{
+    const cx=pad+gW*(i+0.5), yo=y(obj[i]), yr=y(real[i]);
+    g+='<rect x="'+(cx-bw-2).toFixed(1)+'" y="'+yo.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(H-pB-yo).toFixed(1)+'" fill="#c3d0d7" rx="2"/>';
+    g+='<rect x="'+(cx+2).toFixed(1)+'" y="'+yr.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(H-pB-yr).toFixed(1)+'" fill="#1B9AC4" rx="2"/>';
+    g+='<text x="'+(cx-bw/2-2).toFixed(1)+'" y="'+(yo-3).toFixed(1)+'" font-size="8" fill="#8496a0" text-anchor="middle">'+(obj[i]/1000).toFixed(0)+'k</text>';
+    g+='<text x="'+(cx+bw/2+2).toFixed(1)+'" y="'+(yr-3).toFixed(1)+'" font-size="8" fill="#0d7fa5" text-anchor="middle" font-weight="700">'+(real[i]/1000).toFixed(0)+'k</text>';
+    const c=Math.round(real[i]/obj[i]*100), col=c>=100?'#1e9e5a':(c>=90?'#e0a800':'#d64545');
+    g+='<text x="'+cx.toFixed(1)+'" y="'+(pT-9).toFixed(1)+'" font-size="9.5" fill="'+col+'" text-anchor="middle" font-weight="700">'+c+'%</text>';
+    g+='<text x="'+cx.toFixed(1)+'" y="'+(H-11)+'" font-size="10" fill="#6b8290" text-anchor="middle">'+l+'</text>';
+  });
+  svg.innerHTML=g;
+}
+bars('objBars',
+  [41830,28303,29458,35027,41692,47003,69612],
+  [34201,28519,27866,32225,37133,40245,44139],
+  ['Ene','Feb','Mar','Abr','May','Jun','Jul*']);
+bigMulti('facChart',
+  [[44.6,43.8,49.1,67.3,80.5,68.0,87.9,95.9,88.1,90.5,99.7,127.0],
+   [135.4,91.1,86.3,114.8,142.7,169.5,250.0,167.8,179.2,174.8,196.7,218.2],
+   [247.7,221.0,211.3,237.1,272.2,295.4,null,null,null,null,null,null]],
+  ['E','F','M','A','M','J','J','A','S','O','N','D'],['#c3d0d7','#8bb9cc','#1B9AC4'],v=>v.toFixed(0));
+bigMulti('envChart',
+  [[18550,13554,13440,14551,18040,15043,19484,17678,15965,null,null,null],
+   [24606,16649,17328,20604,24525,27649,40948,26637,29626,null,null,null],
+   [34201,28519,27866,32225,37133,40245,null,null,null,null,null,null]],
+  ['E','F','M','A','M','J','J','A','S','O','N','D'],['#c3d0d7','#8bb9cc','#1B9AC4'],v=>(v/1000).toFixed(0)+'k');
+bigMulti('visitChart',
+  [[57.1,63.0,48.7,62.4,46.1,53.8],[10.0,8.8,7.0,9.9,9.7,10.3],[1.8,1.4,1.2,1.7,1.9,2.7]],
+  ['Ene','Feb','Mar','Abr','May','Jun'],['#1e9e5a','#F4B223','#d64545'],v=>v.toFixed(1).replace('.',','));
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
