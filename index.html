@@ -266,6 +266,31 @@
         </table>
       </div>
 
+      <h3 class="mini">Clientes activos — evolución mensual</h3>
+      <div class="concept">Clientes que procesaron al menos 1 guía en el mes. El crecimiento de la cartera activa es un indicador de salud comercial.</div>
+      <div class="grid g2">
+        <div class="bigchart" style="padding:12px 14px">
+          <div style="font-size:12px;color:var(--navy);font-weight:700;margin-bottom:4px">Clientes activos por mes</div>
+          <div id="clientesChart"></div>
+          <div class="cref">pico en mayo (76) · leve caída en junio (75)</div>
+        </div>
+        <table style="align-self:start">
+          <thead><tr><th>Mes</th><th class="mono">Activos</th><th class="mono">Altas</th><th class="mono">Bajas</th></tr></thead>
+          <tbody>
+            <tr><td>Enero</td><td class="mono">68</td><td class="mono">—</td><td class="mono">—</td></tr>
+            <tr><td>Febrero</td><td class="mono">65</td><td class="mono pos">+3</td><td class="mono neg">−6</td></tr>
+            <tr><td>Marzo</td><td class="mono">70</td><td class="mono pos">+8</td><td class="mono neg">−3</td></tr>
+            <tr><td>Abril</td><td class="mono">73</td><td class="mono pos">+6</td><td class="mono neg">−3</td></tr>
+            <tr><td>Mayo</td><td class="mono">76</td><td class="mono pos">+7</td><td class="mono neg">−4</td></tr>
+            <tr><td>Junio</td><td class="mono">75</td><td class="mono pos">+5</td><td class="mono neg">−6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid g2" style="margin-top:10px">
+        <div class="note info">🌱 <b>Altas junio (5 nuevos):</b> PURA SALUD NATURAL, KAIZEN FITNESS, TECH MARKET AR, NATURALIA AR, HOGAR PREMIUM. Son clientes pequeños de segmento C/D con potencial de crecimiento.</div>
+        <div class="note warn">⚠ <b>Bajas junio (6 inactivos vs mayo):</b> RUMINA STORE, POWERNAX, COSMETIC LAB, STYLE HUB, SPORT CENTER AR, ORGANICS BA. Validar si son bajas temporales o definitivas.</div>
+      </div>
+
       <h3 class="mini">Logística inversa (devoluciones)</h3>
       <div class="concept">Devoluciones por cliente y su sender, en cantidad y % sobre sus propias guías. Alto % = problema de calidad de venta del cliente que impacta costo.</div>
       <table>
@@ -289,15 +314,15 @@
       <h3 class="mini">KPIs principales de SLA</h3>
       <div class="concept">SLA = guías entregadas (POD-ENTREGADA) sobre guías procesadas (sin canceladas, anuladas, dev-rendición ni retiros).</div>
       <div class="grid g4">
-        <div class="kpi green"><div class="accent"></div>
+        <div class="kpi amber"><div class="accent"></div>
           <div class="label">SLA General (junio)</div><div class="value">72,7<small>%</small></div>
           <div class="delta up">▲ +4,2 pp vs mayo (68,5%)</div>
-          <div class="sem green"><span class="ic">🟢</span><span>Verde: supera la meta de 60% (amarillo 50–60, rojo &lt;50).</span></div>
+          <div class="sem amber"><span class="ic">🟡</span><span>Amarillo: 70–75%. Meta actualizada ≥75% (amarillo 70–74,9, rojo &lt;70).</span></div>
         </div>
-        <div class="kpi green"><div class="accent"></div>
+        <div class="kpi amber"><div class="accent"></div>
           <div class="label">SLA COD (contraentrega)</div><div class="value">66,9<small>%</small></div>
           <div class="delta up">▲ +4,8 pp vs mayo (62,1%)</div>
-          <div class="sem green"><span class="ic">🟢</span><span>Verde: supera 60% (amarillo 50–60, rojo &lt;50).</span></div>
+          <div class="sem amber"><span class="ic">🟡</span><span>Amarillo: 65–70%. Meta actualizada ≥70% (amarillo 65–69,9, rojo &lt;65).</span></div>
         </div>
         <div class="kpi green"><div class="accent"></div>
           <div class="label">SLA Pago Anticipado</div><div class="value">97,4<small>%</small></div>
@@ -314,11 +339,11 @@
       <h3 class="mini">SLA — evolutivo con meta</h3>
       <div class="grid g3">
         <div class="kpi neutral"><div class="accent"></div><div class="label">SLA General</div>
-          <div class="chart" data-series="72.0,76.2,72.1,76.4,68.5,72.7" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 60% · siempre en verde</div></div>
+          <div class="chart" data-series="72.0,76.2,72.1,76.4,68.5,72.7" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 75% · actualmente en amarillo</div></div>
         <div class="kpi neutral"><div class="accent"></div><div class="label">SLA Anticipado</div>
           <div class="chart" data-series="93.1,92.8,88.6,95.8,96.3,97.4" data-umbral="95" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 95% · en verde desde abril</div></div>
         <div class="kpi neutral"><div class="accent"></div><div class="label">SLA COD</div>
-          <div class="chart" data-series="67.3,69.0,66.8,70.4,62.1,66.9" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 60% · en verde todo el semestre</div></div>
+          <div class="chart" data-series="67.3,69.0,66.8,70.4,62.1,66.9" data-umbral="60" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta 70% · actualmente en amarillo</div></div>
       </div>
 
       <h3 class="mini">Entrega por visita (FAR / 2ª / 3ª)</h3>
@@ -341,19 +366,64 @@
       </table>
       <div class="note warn" style="margin-top:8px">La 2ª visita casi se duplicó desde febrero (2.852 → 4.456) y la 3ª se multiplicó (459 → 1.151): cada vez más paquetes necesitan reintentos = más costo operativo.</div>
 
-      <h3 class="mini">OTIF — tiempo In House → entrega</h3>
-      <div class="concept">OTIF = "On Time In Full": tiempo desde que la guía llega al depósito (In House) hasta que se entrega. Objetivo Next Day: ≤ 1 día. Se mide sobre las guías efectivamente entregadas.</div>
+      <h3 class="mini">OTIF — tiempo In House → 1ª visita</h3>
+      <div class="concept">OTIF redefinido: tiempo desde que la guía llega al depósito (In House) hasta el <b>1er intento de visita</b>, independientemente del resultado (entregado o no). Las <b>fallas mecánicas se excluyen</b> del OTIF y se miden como fuente de desvío aparte.</div>
       <div class="grid g3">
-        <div class="kpi red"><div class="accent"></div><div class="label">Tiempo promedio In House → entrega (junio)</div><div class="value">4,55 <small>días</small></div>
-          <div class="delta down">▲ desde 2,66 en enero</div>
-          <div class="chart" data-series="2.66,2.45,3.18,3.50,5.05,4.55" data-umbral="1" data-unit="d" data-labels="E,F,M,A,M,J"></div><div class="cref">meta Next Day ≤ 1 día · mediana junio 3 días</div></div>
-        <div class="kpi red"><div class="accent"></div><div class="label">OTIF Next Day (≤ 1 día) — junio</div><div class="value">38,4<small>%</small></div>
-          <div class="delta down">▼ desde 52,3% en enero</div>
-          <div class="chart" data-series="52.3,52.4,50.4,49.6,35.4,38.4" data-umbral="80" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">% entregado al día siguiente o antes</div></div>
-        <div class="kpi amber"><div class="accent"></div><div class="label">Entregado en ≤ 2 días — junio</div><div class="value">48,9<small>%</small></div>
-          <div class="chart" data-series="62.0,67.9,59.7,60.6,47.6,48.9" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">margen de tolerancia de 2 días</div></div>
+        <div class="kpi amber"><div class="accent"></div><div class="label">Tiempo promedio In House → 1ª visita (junio)</div><div class="value">1,23 <small>días</small></div>
+          <div class="delta flat">≈ estable vs enero (1,19d)</div>
+          <div class="chart" data-series="1.19,1.28,1.13,1.15,1.19,1.23" data-umbral="1" data-unit="d" data-labels="E,F,M,A,M,J"></div><div class="cref">mediana: 1 día todos los meses — la flota llega rápido</div></div>
+        <div class="kpi amber"><div class="accent"></div><div class="label">1ª visita ≤ 1 día (Next Day) — junio</div><div class="value">83,3<small>%</small></div>
+          <div class="delta down">▼ −7,7 pp vs marzo (91,3% — pico)</div>
+          <div class="chart" data-series="87.0,81.2,91.3,89.0,85.9,83.3" data-umbral="90" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">% visitados Next Day · meta 90% · mejor mes: marzo 91,3%</div></div>
+        <div class="kpi green"><div class="accent"></div><div class="label">1ª visita ≤ 2 días — junio</div><div class="value">96,0<small>%</small></div>
+          <div class="delta up">▲ estable (93–97% todo el semestre)</div>
+          <div class="chart" data-series="95.6,93.4,96.8,97.2,96.4,96.0" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">% visitados en 2 días · siempre sobre 93% — no es el problema</div></div>
       </div>
-      <div class="note warn" style="margin-top:8px">🔴 <b>El OTIF se está deteriorando</b>: el tiempo promedio subió de 2,7 a 4,5 días y el cumplimiento Next Day cayó de 52% a 38%. A medida que crece el volumen, la promesa de entrega al día siguiente se está perdiendo — es la alerta operativa del semestre.</div>
+      <div class="note warn" style="margin-top:8px">🔴 <b>El OTIF se deteriora</b>: el tiempo hasta 1ª visita <b>NO es el problema</b> — promedio 1,19 días (mediana 1 día), con 81–91% Next Day según el mes. El SLA bajo se explica por lo que pasa <i>en</i> la visita (rechazo, incontactable, COD sin efectivo), no por demoras en llegar. Las <b>fallas mecánicas son la alarma real</b>: crecieron ×9 de marzo a junio (231 → 2.073 casos, 4,8% de guías).</div></div>
+
+      <h3 class="mini">Fallas mecánicas — seguimiento mensual</h3>
+      <div class="concept">Excluidas del OTIF. Se miden por separado para evaluar si la flota propia mejora o se deteriora en disponibilidad operativa.</div>
+      <div class="grid g3">
+        <div class="kpi red"><div class="accent"></div><div class="label">Fallas mecánicas (junio)</div><div class="value">2.073</div>
+          <div class="delta down">▲ +6,9% vs mayo · ×9 desde marzo</div>
+          <div class="chart" data-series="880,398,231,524,1939,2073" data-unit="n" data-labels="E,F,M,A,M,J"></div><div class="cref">pico mayo (+270% vs abr) · meta: &lt;500/mes</div></div>
+        <div class="kpi red"><div class="accent"></div><div class="label">Transportistas afectados (junio)</div><div class="value">186</div>
+          <div class="delta down">▲ ×3 desde marzo (63 → 186)</div>
+          <div class="chart" data-series="123,71,63,83,146,186" data-unit="n" data-labels="E,F,M,A,M,J"></div><div class="cref">11,1 paquetes/transportista en jun · 3,7 en mar</div></div>
+        <div class="kpi amber"><div class="accent"></div><div class="label">% de guías con falla mecánica</div><div class="value">4,8<small>%</small></div>
+          <div class="delta down">▲ desde 0,7% en marzo (piso)</div>
+          <div class="chart" data-series="2.5,1.3,0.7,1.5,4.5,4.8" data-unit="%" data-labels="E,F,M,A,M,J"></div><div class="cref">meta: &lt;2% · feb–mar = piso histórico</div></div>
+      </div>
+      <div class="grid g2" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Mes</th><th class="mono">Paquetes</th><th class="mono">Transportistas</th><th class="mono">Paq/Transp</th><th class="mono">% guías</th></tr></thead>
+          <tbody>
+            <tr><td>Enero</td><td class="mono">880</td><td class="mono">123</td><td class="mono">7,2</td><td class="mono">2,5%</td></tr>
+            <tr><td>Febrero</td><td class="mono">398</td><td class="mono">71</td><td class="mono pos">5,6</td><td class="mono">1,3%</td></tr>
+            <tr><td>Marzo</td><td class="mono pos">231</td><td class="mono pos">63</td><td class="mono pos">3,7</td><td class="mono pos">0,7%</td></tr>
+            <tr><td>Abril</td><td class="mono">524</td><td class="mono">83</td><td class="mono">6,3</td><td class="mono">1,5%</td></tr>
+            <tr><td>Mayo</td><td class="mono neg">1.939</td><td class="mono neg">146</td><td class="mono neg">13,3</td><td class="mono neg">4,5%</td></tr>
+            <tr><td>Junio</td><td class="mono neg">2.073</td><td class="mono neg">186</td><td class="mono neg">11,1</td><td class="mono neg">4,8%</td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th colspan="2">Top 10 transportistas — acumulado Ene–Jun</th></tr>
+          <tr><th>Transportista</th><th class="mono">Fallas</th></tr></thead>
+          <tbody>
+            <tr><td>Zapata, Maximiliano</td><td class="mono neg">222</td></tr>
+            <tr><td>Montivero, Ezequiel</td><td class="mono neg">179</td></tr>
+            <tr><td>Zanutelli, Pierina</td><td class="mono neg">179</td></tr>
+            <tr><td>Ruiz, San Martín</td><td class="mono">98</td></tr>
+            <tr><td>Leguizamon, Claudio A.</td><td class="mono">95</td></tr>
+            <tr><td>Martinez, Abril M.</td><td class="mono">91</td></tr>
+            <tr><td>Sosa, Federico N.</td><td class="mono">86</td></tr>
+            <tr><td>Pazos Paz, Nathan G.</td><td class="mono">85</td></tr>
+            <tr><td>Berardo, Natalia</td><td class="mono">84</td></tr>
+            <tr><td>Soto, Igor</td><td class="mono">82</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note warn" style="margin-top:8px">🔴 <b>Doble señal de alerta:</b> las fallas crecieron en cantidad de paquetes (×9 desde marzo) <i>y</i> en cantidad de transportistas (63→186, ×3). El ratio paquetes/transportista también subió: de 3,7 en marzo a 11,1 en junio, lo que indica que los mismos transportistas están fallando más veces. <b>Los 3 con más fallas acumuladas (Zapata, Montivero, Zanutelli — 580 fallas combinadas) son el foco inmediato de revisión de mantenimiento.</b> Un plan preventivo sobre este núcleo puede reducir directamente el impacto.</div>
 
       <h3 class="mini">Dónde está el problema: tipo de pago y zona</h3>
       <div class="concept">El SLA se explica por el TIPO DE PAGO, no por el transportista. Los tercerizados (Andreani/JN) mueven 98% pago anticipado (flujo fácil) y la flota propia 87% COD (flujo difícil): por eso comparar sus SLA sería engañoso.</div>
@@ -407,7 +477,22 @@
       </table>
       <div class="note warn" style="margin-top:8px">Rechazo + reprogramado + sin contacto = <b>~32% de las no-entregas</b>. La falla mecánica (3,4%) es un problema interno de flota, accionable directo.</div>
 
-      <h3 class="mini">Retiros y guías robadas / extraviadas</h3>
+      <h3 class="mini">Retiros efectivos — análisis mensual</h3>
+      <div class="concept">Solo retiros realizados (excluye cancelados y anulados). Promedio diario = retiros / días hábiles. Mide la eficiencia operativa del servicio de retiro.</div>
+      <table>
+        <thead><tr><th>Mes</th><th class="mono">Retiros</th><th class="mono">Días hábiles</th><th class="mono">Prom. diario</th><th class="mono">Var. mensual</th></tr></thead>
+        <tbody>
+          <tr><td>Enero</td><td class="mono">673</td><td class="mono">22</td><td class="mono">30,6</td><td class="mono">—</td></tr>
+          <tr><td>Febrero</td><td class="mono">548</td><td class="mono">20</td><td class="mono">27,4</td><td class="mono neg">−18,6%</td></tr>
+          <tr><td>Marzo</td><td class="mono">739</td><td class="mono">21</td><td class="mono pos">35,2</td><td class="mono pos">+34,9%</td></tr>
+          <tr><td>Abril</td><td class="mono">617</td><td class="mono">22</td><td class="mono">28,0</td><td class="mono neg">−16,5%</td></tr>
+          <tr><td>Mayo</td><td class="mono">597</td><td class="mono">22</td><td class="mono">27,1</td><td class="mono neg">−3,2%</td></tr>
+          <tr><td>Junio</td><td class="mono">632</td><td class="mono">22</td><td class="mono">28,7</td><td class="mono pos">+5,9%</td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:8px">Los retiros son relativamente estables (548–739/mes). Marzo tiene el mejor promedio diario (35,2). Promedio semestral: <b>29,2 retiros/día hábil</b>. Total semestre: 3.806 retiros.</div>
+
+      <h3 class="mini">Guías robadas / extraviadas</h3>
       <div class="concept">Los retiros son operación aparte (no cuentan como guía procesada). Robos/extravíos se valorizan por su exposición económica.</div>
       <div class="grid g3">
         <div class="kpi neutral"><div class="accent"></div><div class="label">Retiros efectivos (junio)</div><div class="value">632</div>
@@ -502,7 +587,7 @@
     <div class="seghead" style="background:linear-gradient(100deg,#2d3748,#1a202c)"><h2>🎯 Accionables</h2><div class="desc">Prioridades para Julio · en orden de impacto</div></div>
     <div class="segbody">
       <ol class="actions" style="padding-left:20px">
-        <li><b>⏱️ Frenar el deterioro del OTIF</b> — El tiempo promedio de entrega subió de 2,7 a 4,5 días y el Next Day cayó de 52% a 38%. Investigar por qué crece la demora: ¿stock en depósito antes de despachar? ¿rutas congestionadas? ¿más volumen sin más capacidad? Objetivo: volver a 3 días promedio.</li>
+        <li><b>⏱️ Controlar fallas mecánicas</b> — La flota visita rápido (1,19d promedio, 83% Next Day en junio), pero las fallas mecánicas escalaron ×9 de marzo a junio (231 → 2.073 casos, 4,8%). Reducir fallas es el principal lever para mejorar SLA operacional.</li>
         <li><b>🎯 Acelerar cumplimiento del objetivo comercial</b> — Junio cerró en 85,6% (vs meta 100%). La brecha es 6.758 envíos. Para el 2do semestre: activar cuentas dormidas del segmento B/C y bajar la devolución de DROPI/PaqGo para no perder guías reentregadas.</li>
         <li><b>🔁 Calidad de venta DROPI/PaqGo</b> — DROPI devuelve 44%, PaqGo 26% y DROPI tiene SLA de solo 54,5%. Son las 2 cuentas más grandes: compartirles sus propios datos y acordar acciones (validación de dirección, confirmación previa, horario de entrega) para bajar rechazo y reprogramación (que juntos explican el 22% de los intentos fallidos).</li>
         <li><b>📦 Diversificar cartera de Fulfillment</b> — SERENIVIDA llegó al 95,4%: si sale, el área colapsa. Objetivo concreto: sumar 2 clientes en el 3er trimestre. El FF factura $16M/mes y tiene infraestructura ociosa disponible para nuevos clientes.</li>
@@ -516,189 +601,205 @@
 
 <script>
 // ============================================================
-// DATOS (arrays [Ene..Jun])
+// DATOS
 // ============================================================
 const MESES = ['Ene','Feb','Mar','Abr','May','Jun'];
 const DATA = {
-  sla_general:    [72.0, 76.2, 72.1, 76.4, 68.5, 72.7],
-  sla_anticipado: [93.1, 92.8, 88.6, 95.8, 96.3, 97.4],
-  sla_cod:        [67.3, 69.0, 66.8, 70.4, 62.1, 66.9],
-  otif_nextday:   [52.3, 52.4, 50.4, 49.6, 35.4, 38.4],
-  otif_2dias:     [62.0, 67.9, 59.7, 60.6, 47.6, 48.9],
-  otif_dias:      [2.66, 2.45, 3.18, 3.50, 5.05, 4.55],
-  envios_real:    [34201, 28519, 27866, 32225, 37133, 40245],
-  envios_obj:     [41830, 28303, 29458, 35027, 41693, 47003],
-  ff_conc:        [63.8, 32.6, 66.5, 88.2, 90.7, 95.4],
-  facturacion:    [247.7, 221.0, 211.3, 237.1, 272.2, 295.4],
-  robos_exp:      [null, null, null, null, null, 3.4],
+  sla_general:      [72.0, 76.2, 72.1, 76.4, 68.5, 72.7],
+  sla_anticipado:   [93.1, 92.8, 88.6, 95.8, 96.3, 97.4],
+  sla_cod:          [67.3, 69.0, 66.8, 70.4, 62.1, 66.9],
+  otif_nextday:     [87.0, 81.2, 91.3, 89.0, 85.9, 83.3],  // REAL: InHouse→1ª visita ≤1d
+  otif_2dias:       [95.6, 93.4, 96.8, 97.2, 96.4, 96.0],  // REAL: InHouse→1ª visita ≤2d
+  otif_dias:        [1.19, 1.28, 1.13, 1.15, 1.19, 1.23],  // REAL: avg días InHouse→1ª visita
+  mec_fallas:       [880,  398,  231,  524, 1939, 2073],    // REAL: (9WVR) del SLA
+  mec_transp:       [123,   71,   63,   83,  146,  186],    // REAL: transportistas únicos con 9WVR
+  envios_real:      [34201,28519,27866,32225,37133,40245],
+  envios_obj:       [41830,28303,29458,35027,41693,47003],
+  ff_conc:          [63.8, 32.6, 66.5, 88.2, 90.7, 95.4],
+  clientes_activos: [68,   65,   70,   73,   76,   75],
 };
 
 // ============================================================
-// SCORECARD CEO (selector de mes + 6 tiles + alertas)
+// SCORECARD CEO
 // ============================================================
 const TILES = [
-  { id:'sla',  label:'SLA General',          key:'sla_general',  unit:'%',  meta:60, amber:50, dir:'alto' },
-  { id:'otif', label:'OTIF Next Day',         key:'otif_nextday', unit:'%',  meta:52, amber:40, dir:'alto' },
-  { id:'obj',  label:'Objetivo comercial',    compute: i => Math.round(DATA.envios_real[i]/DATA.envios_obj[i]*1000)/10,
-                                               unit:'%',  meta:100, amber:90, dir:'alto' },
-  { id:'far',  label:'FAR 1ª visita',         values: [57.1,78.4,75.8,78.0,46.1,53.8], unit:'%', meta:75, amber:60, dir:'alto' },
-  { id:'conc', label:'Conc. Fulfillment',     key:'ff_conc',      unit:'%',  meta:80, amber:90, dir:'bajo' },
-  { id:'otif2',label:'Entrega ≤2 días',       key:'otif_2dias',   unit:'%',  meta:60, amber:50, dir:'alto' },
+  { label:'SLA General',         key:'sla_general',  unit:'%', meta:75, amber:70, dir:'alto' },
+  { label:'SLA COD',             key:'sla_cod',       unit:'%', meta:70, amber:65, dir:'alto' },
+  { label:'OTIF 1ª visita ≤1d',  key:'otif_nextday',  unit:'%', meta:90, amber:85, dir:'alto' },
+  { label:'Objetivo comercial',
+    compute: i => Math.round(DATA.envios_real[i]/DATA.envios_obj[i]*1000)/10,
+                                               unit:'%', meta:100, amber:90, dir:'alto' },
+  { label:'FAR 1ª visita',
+    values: [57.1,78.4,75.8,78.0,46.1,53.8],  unit:'%', meta:75,  amber:60, dir:'alto' },
+  { label:'Conc. Fulfillment',   key:'ff_conc',       unit:'%', meta:80, amber:90, dir:'bajo' },
 ];
 
-function semColor(v, tile) {
+function semColor(v, t) {
   if (v == null) return 'neutral';
-  if (tile.dir === 'bajo') {
-    return v <= tile.meta ? 'green' : v <= tile.amber ? 'amber' : 'red';
-  }
-  return v >= tile.meta ? 'green' : v >= tile.amber ? 'amber' : 'red';
+  if (t.dir === 'bajo') return v <= t.meta ? 'green' : v <= t.amber ? 'amber' : 'red';
+  return v >= t.meta ? 'green' : v >= t.amber ? 'amber' : 'red';
 }
 
-function buildScorecard(mesIdx) {
-  const tiles = document.getElementById('scoreTiles');
-  const alerts = document.getElementById('alertasBox');
-  tiles.innerHTML = '';
+function buildScorecard(mi) {
+  const tilesEl  = document.getElementById('scoreTiles');
+  const alertsEl = document.getElementById('alertasBox');
+  if (!tilesEl || !alertsEl) return;
+  tilesEl.innerHTML = '';
   const alertList = [];
 
   TILES.forEach(t => {
-    let val, prev;
+    let val = null, prev = null;
     if (t.compute) {
-      val  = mesIdx < DATA.envios_real.length ? t.compute(mesIdx) : null;
-      prev = mesIdx > 0 ? t.compute(mesIdx-1) : null;
+      if (mi < DATA.envios_real.length) val = t.compute(mi);
+      if (mi > 0) prev = t.compute(mi - 1);
     } else if (t.values) {
-      val  = t.values[mesIdx] ?? null;
-      prev = mesIdx > 0 ? (t.values[mesIdx-1] ?? null) : null;
+      val  = t.values[mi]    ?? null;
+      prev = mi > 0 ? (t.values[mi-1] ?? null) : null;
     } else {
-      const arr = DATA[t.key];
-      val  = mesIdx < arr.length ? arr[mesIdx] : null;
-      prev = mesIdx > 0 ? arr[mesIdx-1] : null;
+      const a = DATA[t.key];
+      val  = mi < a.length ? a[mi] : null;
+      prev = mi > 0 ? a[mi-1] : null;
     }
-
     const col = semColor(val, t);
     const ic  = col==='green'?'🟢':col==='amber'?'🟡':col==='red'?'🔴':'⚪';
-    const delta = (val!=null && prev!=null)
-      ? (val-prev>0?'▲ +':'▼ ')+Math.abs(val-prev).toFixed(1)+(t.unit==='%'?' pp':'')
+    const diff = (val!=null && prev!=null) ? val - prev : null;
+    const dirMul = t.dir === 'alto' ? 1 : -1;
+    const dSign  = diff != null ? (diff * dirMul > 0 ? 'pos' : diff * dirMul < 0 ? 'neg' : '') : '';
+    const dText  = diff != null
+      ? (diff > 0 ? '▲ +' : '▼ ') + Math.abs(diff).toFixed(1) + (t.unit === '%' ? ' pp' : '')
       : '';
-    const dClass = (val!=null && prev!=null) ? ((val-prev)*(t.dir==='alto'?1:-1)>0?'pos':'neg') : '';
-
-    tiles.innerHTML += `
-      <div class="tile ${col}" style="border-top-width:4px">
-        <div class="tl">${ic} ${t.label}</div>
-        <div class="tv">${val!=null?val.toLocaleString('es-AR',{maximumFractionDigits:1})+t.unit:'—'}</div>
-        <div class="td ${dClass}" style="font-size:10.5px">${delta}</div>
-      </div>`;
-
-    if (col === 'red' && val != null) alertList.push(`${ic} <b>${t.label}</b>: ${val.toLocaleString('es-AR',{maximumFractionDigits:1})}${t.unit} — por debajo de meta.`);
+    tilesEl.innerHTML += `<div class="tile ${col}">
+      <div class="tl">${ic} ${t.label}</div>
+      <div class="tv">${val!=null ? val.toLocaleString('es-AR',{maximumFractionDigits:1})+t.unit : '—'}</div>
+      <div class="td ${dSign}" style="font-size:10.5px">${dText}</div>
+    </div>`;
+    if (col === 'red'   && val != null) alertList.push(`🔴 <b>${t.label}</b>: ${val.toLocaleString('es-AR',{maximumFractionDigits:1})}${t.unit} — por debajo de meta.`);
     if (col === 'amber' && val != null) alertList.push(`🟡 <b>${t.label}</b>: ${val.toLocaleString('es-AR',{maximumFractionDigits:1})}${t.unit} — en zona de alerta.`);
   });
 
   if (alertList.length) {
-    alerts.innerHTML = `<div class="note warn" style="font-size:12px"><b>⚠ Alertas del mes — ${MESES[mesIdx]}:</b><ul style="margin:6px 0 0 16px;line-height:1.8">${alertList.map(a=>'<li>'+a+'</li>').join('')}</ul></div>`;
+    alertsEl.innerHTML = `<div class="note warn" style="font-size:12px"><b>⚠ Alertas ${MESES[mi]}:</b><ul style="margin:6px 0 0 18px;line-height:1.9">${alertList.map(a=>'<li>'+a+'</li>').join('')}</ul></div>`;
   } else {
-    alerts.innerHTML = `<div class="note info" style="font-size:12px">✅ Todos los KPIs en verde para ${MESES[mesIdx]}.</div>`;
+    alertsEl.innerHTML = `<div class="note info" style="font-size:12px">✅ Todos los KPIs en verde para ${MESES[mi]}.</div>`;
   }
 }
 
-// Populate month selector
 const sel = document.getElementById('mesSel');
-MESES.forEach((m,i) => { const o = document.createElement('option'); o.value=i; o.textContent=m; if(i===5) o.selected=true; sel.appendChild(o); });
-sel.addEventListener('change', () => buildScorecard(+sel.value));
-buildScorecard(5); // default: Junio
+if (sel) {
+  MESES.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=m; if(i===5)o.selected=true; sel.appendChild(o); });
+  sel.addEventListener('change', ()=>buildScorecard(+sel.value));
+}
+buildScorecard(5);
 
 // ============================================================
-// MINI CHARTS (data-series attr → SVG sparklines)
+// MINI SPARKLINES
 // ============================================================
 function drawLine(el) {
   const raw    = el.dataset.series.split(',').map(Number);
   const unit   = el.dataset.unit || '';
   const labels = el.dataset.labels ? el.dataset.labels.split(',') : [];
-  const umbral = el.dataset.umbral != null ? +el.dataset.umbral : null;
-  const W=320, H=74, px=20, py=12;
-  const min = Math.min(...raw)*.97, max = Math.max(...raw)*1.03 + (max===min?.1:0);
-  const sx = i => px + i*(W-2*px)/(raw.length-1);
-  const sy = v => H - py - (v-min)/(max-min)*(H-2*py);
+  const umbral = el.dataset.umbral !== undefined ? +el.dataset.umbral : null;
+  const W=320, H=72, px=22, py=12;
+  const mn = Math.min(...raw), mx = Math.max(...raw);
+  const span = mx - mn || 1;
+  const n = raw.length;
+  const sx = i => px + (n > 1 ? i*(W-2*px)/(n-1) : (W-2*px)/2);
+  const sy = v => py + (1-(v-mn)/span)*(H-2*py);
+  const uid = 'u'+Math.random().toString(36).slice(2,8);
 
-  const pts = raw.map((v,i)=>`${sx(i)},${sy(v)}`).join(' ');
-  const area= `M ${sx(0)},${sy(raw[0])} `+raw.map((v,i)=>`L ${sx(i)},${sy(v)}`).join(' ')+
-              ` L ${sx(raw.length-1)},${H-py} L ${sx(0)},${H-py} Z`;
+  const pts  = raw.map((v,i)=>`${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
+  const area = `M${sx(0).toFixed(1)},${sy(raw[0]).toFixed(1)} `
+             + raw.map((v,i)=>`L${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(' ')
+             + ` L${sx(n-1).toFixed(1)},${(H-py).toFixed(1)} L${sx(0).toFixed(1)},${(H-py).toFixed(1)}Z`;
 
-  let metaLine='';
-  if (umbral!=null) {
-    const my = sy(umbral);
-    metaLine=`<line x1="${px}" y1="${my}" x2="${W-px}" y2="${my}" stroke="#d64545" stroke-width="1.2" stroke-dasharray="4,3"/>`;
-  }
-
-  const dots = raw.map((v,i)=>`<circle cx="${sx(i)}" cy="${sy(v)}" r="3" fill="#1B9AC4" stroke="#fff" stroke-width="1.5"/>`).join('');
-  const lbls = labels.map((l,i)=>`<text x="${sx(i)}" y="${H-1}" text-anchor="middle" font-size="8" fill="#9fb2bc">${l}</text>`).join('');
-  const vals = raw.map((v,i)=>{
-    const fmt = unit==='M'?'$'+v.toFixed(1)+'M': unit==='%'?v.toFixed(1)+'%': unit==='d'?v.toFixed(2)+'d': v.toLocaleString('es-AR');
-    return `<text x="${sx(i)}" y="${sy(v)-5}" text-anchor="middle" font-size="7.5" fill="#20313a" font-weight="600">${fmt}</text>`;
+  const meta  = umbral !== null
+    ? `<line x1="${px}" y1="${sy(umbral).toFixed(1)}" x2="${W-px}" y2="${sy(umbral).toFixed(1)}" stroke="#d64545" stroke-width="1.2" stroke-dasharray="4,3"/>`
+    : '';
+  const dots  = raw.map((v,i)=>`<circle cx="${sx(i).toFixed(1)}" cy="${sy(v).toFixed(1)}" r="3" fill="#1B9AC4" stroke="#fff" stroke-width="1.5"/>`).join('');
+  const vals  = raw.map((v,i)=>{
+    const fmt = unit==='M'?'$'+v.toFixed(1)+'M':unit==='%'?v.toFixed(1)+'%':unit==='d'?v.toFixed(2)+'d':v.toLocaleString('es-AR');
+    return `<text x="${sx(i).toFixed(1)}" y="${(sy(v)-5).toFixed(1)}" text-anchor="middle" font-size="7.5" fill="#20313a" font-weight="600">${fmt}</text>`;
   }).join('');
+  const lbs   = labels.map((l,i)=>`<text x="${sx(i).toFixed(1)}" y="${H-1}" text-anchor="middle" font-size="8" fill="#9fb2bc">${l}</text>`).join('');
 
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:74px;display:block">
-    <defs><linearGradient id="ag${Math.random().toString(36).slice(2)}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1B9AC4" stop-opacity=".22"/><stop offset="100%" stop-color="#1B9AC4" stop-opacity=".03"/>
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:72px;display:block" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B9AC4" stop-opacity=".2"/><stop offset="100%" stop-color="#1B9AC4" stop-opacity=".02"/>
     </linearGradient></defs>
-    <path d="${area}" fill="url(#ag${el.id||''})" />
+    <path d="${area}" fill="url(#${uid})"/>
     <polyline points="${pts}" fill="none" stroke="#1B9AC4" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-    ${metaLine}${dots}${vals}${lbls}
+    ${meta}${dots}${vals}${lbs}
   </svg>`;
 }
 document.querySelectorAll('.chart[data-series]').forEach(drawLine);
 
 // ============================================================
-// BARRAS: Objetivo vs Real
+// BARRAS: objetivo vs real (SVG via innerHTML set on SVG el)
 // ============================================================
 (function(){
   const obj  = [41830,28303,29458,35027,41692,47003];
   const real = [34201,28519,27866,32225,37133,40245];
-  const meses= ['Ene','Feb','Mar','Abr','May','Jun'];
-  const W=720,H=220,pb=36,pt=20,pl=10,pr=10;
-  const total=meses.length, bw=28, gap=14, gw=bw*2+gap;
-  const maxV=Math.max(...obj)*1.05;
-  const sx=i=>pl+(i*(gw+22))+11;
-  const sy=v=>pt+(1-v/maxV)*(H-pt-pb);
-  const sh=v=>(v/maxV)*(H-pt-pb);
+  const lbls = ['Ene','Feb','Mar','Abr','May','Jun'];
+  const el = document.getElementById('objBars');
+  if (!el) return;
+  const W=720, H=220, pt=24, pb=36, bw=44, gap=6;
+  const cols = (W - 40) / lbls.length;   // 40 = left+right pad
+  const pad  = 20;
+  const maxV = Math.max(...obj) * 1.1;
+  const sy   = v => pt + (1 - v/maxV) * (H - pt - pb);
+  const sh   = v => (v/maxV) * (H - pt - pb);
 
-  let bars='';
-  meses.forEach((m,i)=>{
-    const x=sx(i), pct=Math.round(real[i]/obj[i]*100);
-    const col=pct>=100?'#1e9e5a':pct>=90?'#e0a800':'#d64545';
-    bars+=`<rect x="${x}" y="${sy(obj[i])}" width="${bw}" height="${sh(obj[i])}" fill="#c3d0d7" rx="3"/>
-           <rect x="${x+bw+gap}" y="${sy(real[i])}" width="${bw}" height="${sh(real[i])}" fill="${col}" rx="3"/>
-           <text x="${x+bw+gap/2}" y="${sy(obj[i])-6}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${col}">${pct}%</text>
-           <text x="${x+bw+gap/2}" y="${H-pb+14}" text-anchor="middle" font-size="10" fill="#6b8290">${m}</text>`;
+  let out = '';
+  // gridlines
+  [20000, 30000, 40000].forEach(gv => {
+    const gy = sy(gv).toFixed(1);
+    out += `<line x1="${pad}" y1="${gy}" x2="${W-pad}" y2="${gy}" stroke="#e6eef2" stroke-width="1"/>`;
+    out += `<text x="${pad-4}" y="${+gy+4}" text-anchor="end" font-size="9" fill="#9fb2bc">${gv/1000}k</text>`;
   });
-  const el=document.getElementById('objBars');
-  if(el) el.innerHTML=`<rect x="0" y="0" width="${W}" height="${H}" fill="#fff"/>${bars}`;
+
+  lbls.forEach((m, i) => {
+    const cx   = pad + (i + 0.5) * cols;
+    const xO   = cx - bw - gap/2;
+    const xR   = cx + gap/2;
+    const pct  = Math.round(real[i] / obj[i] * 100);
+    const col  = pct >= 100 ? '#1e9e5a' : pct >= 90 ? '#e0a800' : '#d64545';
+    const yO   = sy(obj[i]).toFixed(1),  hO = sh(obj[i]).toFixed(1);
+    const yR   = sy(real[i]).toFixed(1), hR = sh(real[i]).toFixed(1);
+    out += `<rect x="${xO.toFixed(1)}" y="${yO}" width="${bw}" height="${hO}" fill="#c3d0d7" rx="3"/>`;
+    out += `<rect x="${xR.toFixed(1)}" y="${yR}" width="${bw}" height="${hR}" fill="${col}" rx="3"/>`;
+    out += `<text x="${cx.toFixed(1)}" y="${(sy(Math.min(obj[i],real[i]))-9).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="${col}">${pct}%</text>`;
+    out += `<text x="${cx.toFixed(1)}" y="${H-pb+18}" text-anchor="middle" font-size="11" fill="#6b8290">${m}</text>`;
+  });
+  el.innerHTML = out;
 })();
 
 // ============================================================
-// MULTI-LINE: Facturación y Envíos multi-año
+// MULTI-LINE: facturación y envíos multi-año
 // ============================================================
 function bigMulti(id, series, labels, colors) {
   const el = document.getElementById(id);
   if (!el) return;
-  const W=720,H=200,pb=24,pt=18,pl=30,pr=10;
+  const W=720, H=200, pb=24, pt=20, pl=38, pr=10;
   const allV = series.flatMap(s=>s.filter(v=>v!=null));
-  const mn=Math.min(...allV)*.95, mx=Math.max(...allV)*1.05;
-  const n=labels.length;
-  const sx=i=>pl+i*(W-pl-pr)/(n-1);
-  const sy=v=>pt+(1-( (v-mn)/(mx-mn) ))*(H-pt-pb);
+  if (!allV.length) return;
+  const mn = Math.min(...allV)*0.93, mx = Math.max(...allV)*1.05;
+  const n  = labels.length;
+  const sx = i => pl + i*(W-pl-pr)/(n-1);
+  const sy = v => pt + (1-(v-mn)/(mx-mn||1))*(H-pt-pb);
 
-  let paths='', dots='';
-  series.forEach((s,si)=>{
-    const pts=s.map((v,i)=>v!=null?`${sx(i)},${sy(v)}`:null).filter(Boolean);
-    paths+=`<polyline points="${pts.join(' ')}" fill="none" stroke="${colors[si]}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
-    s.forEach((v,i)=>{if(v!=null)dots+=`<circle cx="${sx(i)}" cy="${sy(v)}" r="3" fill="${colors[si]}" stroke="#fff" stroke-width="1.2"/>`;});
+  let out = '';
+  for (let s=0; s<=4; s++) {
+    const gv = mn + s*(mx-mn)/4, gy = sy(gv).toFixed(1);
+    out += `<line x1="${pl}" y1="${gy}" x2="${W-pr}" y2="${gy}" stroke="#e6eef2" stroke-width="1"/>`;
+    out += `<text x="${pl-4}" y="${+gy+4}" text-anchor="end" font-size="8" fill="#9fb2bc">${gv>=1000?(gv/1000).toFixed(0)+'k':gv.toFixed(0)}</text>`;
+  }
+  series.forEach((s, si) => {
+    const pts = s.map((v,i)=>v!=null?`${sx(i).toFixed(1)},${sy(v).toFixed(1)}`:null).filter(Boolean);
+    if (pts.length > 1) out += `<polyline points="${pts.join(' ')}" fill="none" stroke="${colors[si]}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s.forEach((v,i)=>{ if(v!=null) out += `<circle cx="${sx(i).toFixed(1)}" cy="${sy(v).toFixed(1)}" r="2.5" fill="${colors[si]}" stroke="#fff" stroke-width="1.2"/>`; });
   });
-  const grid=[0,.25,.5,.75,1].map(t=>{
-    const v=mn+t*(mx-mn), y=sy(v);
-    return `<line x1="${pl}" y1="${y}" x2="${W-pr}" y2="${y}" stroke="#e6eef2" stroke-width="1"/>
-            <text x="${pl-4}" y="${y+4}" text-anchor="end" font-size="8" fill="#9fb2bc">${v>=1000?Math.round(v/1000)+'k':v.toFixed(0)}</text>`;
-  }).join('');
-  const xlbls=labels.map((l,i)=>`<text x="${sx(i)}" y="${H-2}" text-anchor="middle" font-size="9" fill="#9fb2bc">${l}</text>`).join('');
-  el.innerHTML=`${grid}${paths}${dots}${xlbls}`;
+  out += labels.map((l,i)=>`<text x="${sx(i).toFixed(1)}" y="${H-4}" text-anchor="middle" font-size="9" fill="#9fb2bc">${l}</text>`).join('');
+  el.innerHTML = out;
 }
 
 bigMulti('facChart',
@@ -716,30 +817,61 @@ bigMulti('envChart',
   ['#c3d0d7','#8bb9cc','#1B9AC4']);
 
 // ============================================================
-// VISITAS CHART (barras apiladas en % por mes)
+// VISITAS — barras apiladas %
 // ============================================================
 (function(){
-  const far  = [57.1,78.4,75.8,78.0,46.1,53.8];
-  const seg  = [14.4,10.9,10.9,12.4,11.9,10.9];
-  const ter  = [2.6,1.8,1.9,2.1,2.4,2.8];
-  const meses= ['Ene','Feb','Mar','Abr','May','Jun'];
-  const W=720,H=200,pb=24,pt=10,pl=10,pr=10;
-  const bw=60, spacing=(W-pl-pr-meses.length*bw)/(meses.length-1||1);
-  let bars='';
-  meses.forEach((m,i)=>{
-    const x=pl+i*(bw+spacing);
-    const maxH=H-pt-pb;
-    const f=far[i]/100*maxH, s=seg[i]/100*maxH, t=ter[i]/100*maxH;
-    bars+=`<rect x="${x}" y="${H-pb-f}" width="${bw}" height="${f}" fill="#1e9e5a" rx="2"/>
-           <text x="${x+bw/2}" y="${H-pb-f-3}" text-anchor="middle" font-size="9" fill="#20313a" font-weight="700">${far[i].toFixed(1)}%</text>
-           <rect x="${x}" y="${H-pb-f-s}" width="${bw}" height="${s}" fill="#F4B223" rx="2"/>
-           <text x="${x+bw/2}" y="${H-pb-f-s-3}" text-anchor="middle" font-size="9" fill="#20313a" font-weight="700">${seg[i].toFixed(1)}%</text>
-           <rect x="${x}" y="${H-pb-f-s-t}" width="${bw}" height="${t}" fill="#d64545" rx="2"/>
-           <text x="${x+bw/2}" y="${H-pb-f-s-t-3}" text-anchor="middle" font-size="9" fill="#20313a">${ter[i].toFixed(1)}%</text>
-           <text x="${x+bw/2}" y="${H-pb+14}" text-anchor="middle" font-size="10" fill="#6b8290">${m}</text>`;
+  const series = [
+    {vals:[57.1,78.4,75.8,78.0,46.1,53.8], fill:'#1e9e5a'},
+    {vals:[14.4,10.9,10.9,12.4,11.9,10.9], fill:'#F4B223'},
+    {vals:[2.6, 1.8, 1.9, 2.1, 2.4, 2.8],  fill:'#d64545'},
+  ];
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun'];
+  const el = document.getElementById('visitChart');
+  if (!el) return;
+  const W=720, H=200, padL=10, padR=10, bot=28, bw=76;
+  const cols = (W - padL - padR) / meses.length;
+  const maxH = H - 14 - bot;   // drawable height, 14=top pad
+
+  let out = `<rect x="0" y="0" width="${W}" height="${H}" fill="white"/>`;
+  meses.forEach((m, i) => {
+    const cx   = padL + (i + 0.5) * cols;
+    const x    = cx - bw/2;
+    let   yBase = H - bot;
+
+    series.forEach(sr => {
+      const pct = sr.vals[i];
+      const h   = (pct / 100) * maxH;
+      const y   = yBase - h;
+      out += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw}" height="${h.toFixed(1)}" fill="${sr.fill}" rx="2"/>`;
+      if (h > 15) {
+        out += `<text x="${cx.toFixed(1)}" y="${(y + h/2 + 4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="white">${pct.toFixed(1)}%</text>`;
+      }
+      yBase = y;
+    });
+    out += `<text x="${cx.toFixed(1)}" y="${H - bot + 18}" text-anchor="middle" font-size="11" fill="#6b8290">${m}</text>`;
   });
-  const el=document.getElementById('visitChart');
-  if(el) el.innerHTML=`<rect width="${W}" height="${H}" fill="#fff"/>${bars}`;
+  el.innerHTML = out;
+})();
+
+// ============================================================
+// CLIENTES ACTIVOS — mini line chart
+// ============================================================
+(function(){
+  const el = document.getElementById('clientesChart');
+  if (!el) return;
+  const vals = DATA.clientes_activos;
+  const W=460, H=72, px=22, py=12;
+  const mn = Math.min(...vals) - 3, mx = Math.max(...vals) + 3;
+  const sx = i => px + i*(W-2*px)/(vals.length-1);
+  const sy = v => py + (1-(v-mn)/(mx-mn||1))*(H-2*py);
+  const pts = vals.map((v,i)=>`${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
+  let out = `<polyline points="${pts}" fill="none" stroke="#0F2E3E" stroke-width="2.2" stroke-linejoin="round"/>`;
+  vals.forEach((v,i)=>{
+    out += `<circle cx="${sx(i).toFixed(1)}" cy="${sy(v).toFixed(1)}" r="3.5" fill="#0F2E3E" stroke="#fff" stroke-width="1.5"/>`;
+    out += `<text x="${sx(i).toFixed(1)}" y="${(sy(v)-6).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#20313a" font-weight="700">${v}</text>`;
+    out += `<text x="${sx(i).toFixed(1)}" y="${H-1}" text-anchor="middle" font-size="8" fill="#9fb2bc">${MESES[i]}</text>`;
+  });
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:72px;display:block" xmlns="http://www.w3.org/2000/svg">${out}</svg>`;
 })();
 </script>
 </body>
